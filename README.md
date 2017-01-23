@@ -11,12 +11,12 @@ cd pixelsorter
 python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r] [-u]
 ```
 ### Notes:
-Image   (place file you wish to sort in the Images folder)
--m      Mode (1/L/P) [defaults to P]
--d      Direction (v or h) [defaults to h]
--t      Threshold (value between 0 and 255) [defaults to 255]
--r      Reverse (reverse the order pixels are sorted)
--r      Upper (target the lighter pixels to sort)
+|Image   |(place file you wish to sort in the Images folder)|
+|-m      |Mode (1/L/P) [defaults to P]|
+|-d      |Direction (v or h) [defaults to h]|
+|-t      |Threshold (value between 0 and 255) [defaults to 255]|
+|-r      |Reverse (reverse the order pixels are sorted)|
+|-u      |Upper (target the lighter pixels to sort)|
 
 ### Examples:
 *Before images can be found in the Images folder*
