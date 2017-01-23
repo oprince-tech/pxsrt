@@ -11,7 +11,7 @@ cd pixelsorter
 python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r] [-u]
 ```
 ### Examples:
-Before images can be found in the Images folder
+*Before images can be found in the Images folder*
 ```
 python3 pixelsorter.py koi.jpg -d v -t 255 -r
 ```
