@@ -13,7 +13,7 @@ python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r] [
 ### Notes:
 |Option  |Description|
 |--------|------------------------------|
-|Image   |(place file you wish to sort in the Images folder)|
+|Image   |Place file you wish to sort in the Images folder|
 |-m      |Mode (1/L/P) [defaults to P]|
 |-d      |Direction (v or h) [defaults to h]|
 |-t      |Threshold (value between 0 and 255) [defaults to 255]|
