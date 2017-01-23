@@ -11,6 +11,8 @@ cd pixelsorter
 python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r] [-u]
 ```
 ### Notes:
+|Option  |Description|
+|--------|------------------------------|
 |Image   |(place file you wish to sort in the Images folder)|
 |-m      |Mode (1/L/P) [defaults to P]|
 |-d      |Direction (v or h) [defaults to h]|
