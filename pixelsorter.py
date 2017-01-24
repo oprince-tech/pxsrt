@@ -10,9 +10,7 @@ def main():
 	pixels, thresh_pixels = reader.read(img, data, thresh_data, user_threshold)
 
 	print("Sorting Pixels..")
-	sorted_pixels = []
-	for y in range(img.size[1]):
-		sorted_pixels.append(sorter.sort_pixels(pixels[y], thresh_pixels[y]))
+	sorted_pixels = [sorter.sort_pixels(pixels[y], thresh_pixels[y]) for y in range(img.size[1])]
 
 	print("Outputting Pixels..")
 	for y in range(img.size[1]):

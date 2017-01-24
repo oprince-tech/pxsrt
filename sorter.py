@@ -1,12 +1,11 @@
 from PIL import Image
-import random
 import args
 
 def quick_sort(pixels):
 	if pixels == []:
 		return pixels
 	else:
-		p = pixels[random.choice(range(0, len(pixels)))]
+		p = pixels[0]
 		if args.reverse:
 			l = quick_sort([x for x in pixels[1:] if (x[0]+x[1]+x[2]) >= (p[0]+p[1]+p[2])])
 			r = quick_sort([x for x in pixels[1:] if (x[0]+x[1]+x[2]) < (p[0]+p[1]+p[2])])
@@ -24,8 +23,7 @@ def sort_pixels(pixels, thresh):
 
 	def pixel_dump(sort_cache):
 		dump = quick_sort(sort_cache)
-		for c in dump:
-			sorted_pixels.append(c)
+		sorted_pixels.extend(dump)
 
 	for (p, t) in zip(pixels, thresh):
 		if t == white:
