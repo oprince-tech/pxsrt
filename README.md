@@ -2,9 +2,8 @@
 
 ### Requiremets:
 Python3:
-```
 <https://wiki.python.org/moin/BeginnersGuide/Download>
-```
+
 Pillow(PIL Fork):
 ```
 pip install Pillow
