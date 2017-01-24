@@ -6,7 +6,6 @@ def load_image():
     img = Image.open('./images/'+args.input_image).convert("RGB")
     thresh_img = img.convert(args.mode)
     data = img.load()
-    thresh_img.show()
     thresh_data = thresh_img.load()
     output = Image.new('RGB', img.size)
 
