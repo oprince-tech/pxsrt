@@ -25,7 +25,7 @@ python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r] [
 ```
 python3 pixelsorter.py tokyo.jpg -d v -t 50 -r -u
 ```
-![tokyo_Pv50ru.jpg](../blob/master/images/tokyo_Pv50ru.jpg)
+![tokyo_Pv50ru.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/tokyo_Pv50ru.jpg)
 ___
 
 ```
