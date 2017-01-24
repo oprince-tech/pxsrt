@@ -1,3 +1,4 @@
+.gitignore
 /__pycache__
 /images/export
 /images/snow.gif
