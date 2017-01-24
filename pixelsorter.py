@@ -3,11 +3,11 @@ import args, load, reader, direction, sorter, save
 
 def main():
 	print("Importing..")
-	user_threshold, img, thresh_img, data, thresh_data, output = load.load_image()
+	img, thresh_img, data, thresh_data, output = load.load_image()
 
 	print("Reading Pixels..")
 	img, data, thresh_img, thresh_data = direction.get_direction(img, data, thresh_img, thresh_data)
-	pixels, thresh_pixels = reader.read(img, data, thresh_data, user_threshold)
+	pixels, thresh_pixels = reader.read(img, data, thresh_data, args.threshold)
 
 	print("Sorting Pixels..")
 	sorted_pixels = [sorter.sort_pixels(pixels[y], thresh_pixels[y]) for y in range(img.size[1])]
