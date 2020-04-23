@@ -1,5 +1,6 @@
 import args
 
+
 def get_direction(img, data, thresh_img, thresh_data):
     if args.direction == 'v':
         img = img.rotate(90, expand=True)

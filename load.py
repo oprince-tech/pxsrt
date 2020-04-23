@@ -1,6 +1,7 @@
 from PIL import Image
 import args
 
+
 def load_image():
     img = Image.open('./images/'+args.input_image).convert("RGB")
     thresh_img = img.convert(args.mode)

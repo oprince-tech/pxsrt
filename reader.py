@@ -1,4 +1,5 @@
-import args, direction
+import args
+
 
 def threshold(value, thresh_pixels, user_threshold, index):
     if value >= user_threshold:
@@ -6,9 +7,11 @@ def threshold(value, thresh_pixels, user_threshold, index):
     else:
         thresh_pixels[index].append(args.l)
 
+
 def read(img, data, thresh_data, user_threshold):
     def get_value(x, y):
         return thresh_data[x, y]
+
     def get_data(x, y):
         return data[x, y]
     pixels = []
