@@ -18,8 +18,6 @@ def quick_sort(pixels):
 
 
 def sort_pixels(pixels, thresh):
-    white = (255, 255, 255)
-    black = (0, 0, 0)
     sorted_pixels = []
     sort_cache = []
 
@@ -28,9 +26,9 @@ def sort_pixels(pixels, thresh):
         sorted_pixels.extend(dump)
 
     for (p, t) in zip(pixels, thresh):
-        if t == white:
+        if t == (255, 255, 255):
             sort_cache.append(p)
-        elif t == black:
+        elif t == (0, 0, 0):
             if len(sort_cache) >= 1:
                 pixel_dump(sort_cache)
                 sorted_pixels.append(p)

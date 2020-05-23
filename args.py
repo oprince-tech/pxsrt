@@ -7,7 +7,7 @@ p = argparse.ArgumentParser(
     usage='%(prog)s [-h] [IMAGE] [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r REVERSE] [-u UPPER]'
 )
 p.add_argument("Image", help="Name of file in images folder. Ex: earth.jpg")
-p.add_argument("-m", "--mode", help="1/L/P [defaults to P]", default="P", metavar='\b')
+p.add_argument("-m", "--mode", help="L/P [L (Luminance) / P (256 color Palette) {default}]", default="P", metavar='\b')
 p.add_argument("-d", "--direction", help="v (vertical) or h (horizontal)",
                default="h", metavar='\b')
 p.add_argument("-t", "--threshold", help="integer 0 to 255", type=int, default=255, metavar='\b')
