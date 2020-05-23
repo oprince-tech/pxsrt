@@ -12,10 +12,10 @@ p.add_argument("-d", "--direction", help="v (vertical) or h (horizontal)",
                default="h", metavar='\b')
 p.add_argument("-t", "--threshold", help="integer 0 to 255", type=int, default=255, metavar='\b')
 p.add_argument("-r", "--reverse", help="Reverse the order pixels are sorted.",
-               default='', action="store_const", const="r")
+               action="store_true")
 p.add_argument("-u", "--upper", help="Sort the lighter pixels.",
-               default='', action="store_const", const="u")
-p.add_argument("-b", "--blur", help="Blur Amount", type=int, default=0)
+               action="store_true")
+#p.add_argument("-b", "--blur", help="Blur Amount", type=int, default=0)
 __args = p.parse_args()
 
 input_image = __args.Image
@@ -24,11 +24,4 @@ direction = __args.direction
 threshold = __args.threshold
 reverse = __args.reverse
 upper = __args.upper
-blur = __args.blur
-
-if upper == 'u':
-    u = (255, 255, 255)
-    l = (0, 0, 0)
-else:
-    u = (0, 0, 0)
-    l = (255, 255, 255)
+#blur = __args.blur
