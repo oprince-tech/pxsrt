@@ -2,11 +2,9 @@ import args
 
 
 if args.upper:
-    u = (255, 255, 255)
-    l = (0, 0, 0)
+    u, l = (255, 255, 255), (0, 0, 0)
 else:
-    u = (0, 0, 0)
-    l = (255, 255, 255)
+    u, l =  (0, 0, 0), (255, 255, 255)
 
 def threshold(value, thresh_pixels, user_threshold, index):
     if value >= user_threshold:
@@ -21,6 +19,7 @@ def read(img, data, thresh_data, user_threshold):
 
     def get_data(x, y):
         return data[x, y]
+
     pixels = []
     thresh_pixels = []
     for y in range(img.size[1]):
