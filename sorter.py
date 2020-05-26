@@ -4,17 +4,20 @@ from statistics import median #to find median pivot
 
 def find_pivot(cache):
     clen = int(len(cache))
-    a = sum(cache[0])
-    b = sum(cache[int(clen/2)])
-    c = sum(cache[-1])
-    if a <= b and b <= c:
-        return int(clen/2)
-    if b <= a and c <= b:
-        return int(clen/2)
-    if a <= c and c <= b:
-        return -1
-    if c <= a and b <= c:
-        return -1
+    if clen >= 100:
+        a = sum(cache[0])
+        b = sum(cache[int(clen/2)])
+        c = sum(cache[-1])
+        if a <= b and b <= c:
+            return int(clen/2)
+        if b <= a and c <= b:
+            return int(clen/2)
+        if a <= c and c <= b:
+            return -1
+        if c <= a and b <= c:
+            return -1
+        else:
+            return 0
     else:
         return 0
 
@@ -23,8 +26,8 @@ def quick_sort(cache):
     if cache == []:
         return cache
     else:
-        pivot = find_pivot(cache)
-        p = cache[int(pivot)]
+        p_index = find_pivot(cache)
+        p = cache[int(p_index)]
         if args.reverse:
             l = quick_sort([x for x in cache[1:] if (x[0]+x[1]+x[2]) >= (p[0]+p[1]+p[2])])
             r = quick_sort([x for x in cache[1:] if (x[0]+x[1]+x[2]) < (p[0]+p[1]+p[2])])
