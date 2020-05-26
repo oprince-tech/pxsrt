@@ -1,17 +1,21 @@
-import args, load, reader, direction, sorter, save, sys, time, math, concurrent.futures
+import args, load, reader, direction, preview, sorter, save, sys, time, math, concurrent.futures
 
 
 def main():
-    t1 = time.time()
     sys.setrecursionlimit(10**5)
     print("Importing..")
-    img, thresh_img, data, thresh_data, output = load.load_image()
+    img, thresh_img, data, thresh_data, preview_img, output = load.load_image()
 
     print("Reading Pixels..")
     img, data, thresh_img, thresh_data = direction.get_direction(img, data, thresh_img, thresh_data)
-    pixels, thresh_pixels = reader.read(img, data, thresh_data, args.threshold)
+    pixels = reader.read_img(img, data)
+    thresh_pixels = reader.read_thresh(img, thresh_data, args.threshold)
+
+    print("Loading Preview...")
+    thresh_pixels = preview.generate_preview(img, preview_img, thresh_pixels, thresh_data)
 
     print("Sorting Pixels..")
+    t1 = time.time()
     sorted_pixels = []
     with concurrent.futures.ProcessPoolExecutor() as executor:
         process = [executor.submit(sorter.sort_pixels, pixels[y], thresh_pixels[y]) for y in range(img.size[1])]

@@ -13,22 +13,29 @@ def threshold(value, thresh_pixels, user_threshold, index):
         thresh_pixels[index].append(l)
 
 
-def read(img, data, thresh_data, user_threshold):
-    def get_value(x, y):
-        return thresh_data[x, y]
+def read_img(img, data):
 
     def get_data(x, y):
         return data[x, y]
 
     pixels = []
-    thresh_pixels = []
     for y in range(img.size[1]):
         pixels.append([])
+        for x in range(img.size[0]):
+            p_data = get_data(x, y)
+            pixels[y].append(p_data)
+    return pixels
+
+
+def read_thresh(img, thresh_data, user_threshold):
+
+    def get_value(x, y):
+        return thresh_data[x, y]
+
+    thresh_pixels = []
+    for y in range(img.size[1]):
         thresh_pixels.append([])
         for x in range(img.size[0]):
             value = get_value(x, y)
-            p_data = get_data(x, y)
-            pixels[y].append(p_data)
             threshold(value, thresh_pixels, user_threshold, y)
-
-    return pixels, thresh_pixels
+    return thresh_pixels
