@@ -1,4 +1,5 @@
-import args, load, reader, direction, preview, sorter, save, sys, time, math, concurrent.futures
+import args, load, reader, direction, preview, sorter, save, sys, time, math, concurrent.futures, itertools
+from multiprocessing import Pool
 
 
 def main():
@@ -17,10 +18,8 @@ def main():
     print("Sorting Pixels..")
     t1 = time.time()
     sorted_pixels = []
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        process = [executor.submit(sorter.sort_pixels, pixels[y], thresh_pixels[y]) for y in range(img.size[1])]
-        for f in concurrent.futures.as_completed(process):
-            sorted_pixels.append(f.result())
+    with Pool() as pool:
+        sorted_pixels = pool.starmap(sorter.sort_pixels, zip(pixels, thresh_pixels))
 
     print("Outputting Pixels..")
     for y in range(img.size[1]):
