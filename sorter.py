@@ -5,9 +5,7 @@ from statistics import median #to find median pivot
 def find_pivot(cache):
     clen = int(len(cache))
     if clen >= 100:
-        a = sum(cache[0])
-        b = sum(cache[int(clen/2)])
-        c = sum(cache[-1])
+        a, b, c = sum(cache[0]), sum(cache[int(clen/2)]), sum(cache[-1])
         if a <= b and b <= c:
             return int(clen/2)
         if b <= a and c <= b:
@@ -21,29 +19,36 @@ def find_pivot(cache):
     else:
         return 0
 
+def mode_index():
+    if args.mode == 'H':
+        return 0
+    elif args.mode == 'S':
+        return 1
+    else:
+        return 2
 
-def quick_sort(cache):
+def quick_sort(cache, m):
     if cache == []:
         return cache
     else:
         p_index = find_pivot(cache)
         p = cache[int(p_index)]
         if args.reverse:
-            l = quick_sort([x for x in cache[1:] if (x[0]+x[1]+x[2]) >= (p[0]+p[1]+p[2])])
-            r = quick_sort([x for x in cache[1:] if (x[0]+x[1]+x[2]) < (p[0]+p[1]+p[2])])
+            l = quick_sort([x for x in cache[1:] if (x[m]) >= (p[m])], m)
+            r = quick_sort([x for x in cache[1:] if (x[m]) < (p[m])], m)
             return l + [p] + r
         else:
-            l = quick_sort([x for x in cache[1:] if (x[0]+x[1]+x[2]) < (p[0]+p[1]+p[2])])
-            r = quick_sort([x for x in cache[1:] if (x[0]+x[1]+x[2]) >= (p[0]+p[1]+p[2])])
+            l = quick_sort([x for x in cache[1:] if (x[m]) < (p[m])], m)
+            r = quick_sort([x for x in cache[1:] if (x[m]) >= (p[m])], m)
             return l + [p] + r
 
 
 def sort_pixels(pixels, thresh):
-    sorted_pixels = []
-    sort_cache = []
+    m = mode_index()
+    sorted_pixels, sort_cache = [], []
 
     def pixel_dump(sort_cache):
-        dump = quick_sort(sort_cache)
+        dump = quick_sort(sort_cache, m)
         sorted_pixels.extend(dump)
 
     for (p, t) in zip(pixels, thresh):

@@ -1,5 +1,7 @@
-import args, load, reader, direction, preview, sorter, save, sys, time, math, concurrent.futures, itertools
+import args, load, reader, direction, preview, sorter, save, sys, time, math, itertools
 from multiprocessing import Pool
+from PIL import Image
+import numpy as np
 
 
 def main():
@@ -13,26 +15,34 @@ def main():
     thresh_pixels = reader.read_thresh(img, thresh_data, args.threshold)
 
     print("Loading Preview...")
-    thresh_pixels = preview.generate_preview(img, preview_img, thresh_pixels, thresh_data)
+    if args.preview:
+        thresh_pixels = preview.generate_preview(img, preview_img, thresh_pixels, thresh_data)
 
     print("Sorting Pixels..")
-    t1 = time.time()
     sorted_pixels = []
     with Pool() as pool:
         sorted_pixels = pool.starmap(sorter.sort_pixels, zip(pixels, thresh_pixels))
 
+    t1 = time.time()
     print("Outputting Pixels..")
+    # test_array = np.asarray(sorted_pixels)
+    # print(test_array)
+    # test_output = Image.fromarray(test_array)
     for y in range(img.size[1]):
         for x in range(img.size[0]):
             if args.direction == 'h':
                 output.putpixel((x, y), sorted_pixels[y][x])
             elif args.direction == 'v':
-                output.putpixel((y, x), sorted_pixels[y][x])
-
+                output.putpixel((-y, x), sorted_pixels[y][x])
     t2 = time.time() - t1
     print('{} seconds'.format(t2))
-    print("Saving Image..")
-    save.save(output)
+    output.convert("RGB")
+    output.show()
+    save_flag = (input("Would you like to save? Y/N: ")).lower()
+    if save_flag == "y":
+        print("Saving Image..")
+        save.save(output)
+
 
 
 

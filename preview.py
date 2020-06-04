@@ -1,12 +1,18 @@
 from PIL import Image
+import args
 import reader
 
 def generate_preview(img, preview_img, thresh_pixels, thresh_data):
-
+    
     def display_preview(preview_img, thresh_pixels):
-        for y in range(preview_img.size[1]):
-            for x in range(preview_img.size[0]):
-                preview_img.putpixel((x, y), thresh_pixels[y][x])
+        if args.direction == 'h':
+            for y in range(preview_img.size[1]):
+                for x in range(preview_img.size[0]):
+                    preview_img.putpixel((x, y), thresh_pixels[y][x])
+        if args.direction == 'v':
+            for y in range(preview_img.size[0]):
+                for x in range(preview_img.size[1]):
+                    preview_img.putpixel((-y, x), thresh_pixels[y][x])
         preview_img.show()
 
     user_preview_choice = False

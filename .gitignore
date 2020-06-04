@@ -1,3 +1,4 @@
 TOADD.md
 /images/*
 __pycache__
+/test_env/*

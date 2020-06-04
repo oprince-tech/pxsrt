@@ -16,4 +16,3 @@ def save(output):
     if args.direction == 'v':
         output = output.transpose(Image.FLIP_LEFT_RIGHT)
     output.save(output_file)
-    output.show()

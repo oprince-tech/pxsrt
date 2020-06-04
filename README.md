@@ -12,17 +12,19 @@ pip install Pillow
 ```
 git clone https://github.com/oprince-dev/pixelsorter.git
 cd pixelsorter
-python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r] [-u]
+python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-b BLUR] [-r] [-u] [-p PREVIEW]
 ```
 ### Notes:
 |Option  |Description|
 |--------|------------------------------|
 |Image   |Place the file you wish to sort in the Images folder|
-|-m      |Mode (1/L/P) [defaults to P]|
+|-m      |Mode (H/S/V) [defaults to V]|
 |-d      |Direction (v or h) [defaults to h]|
 |-t      |Threshold (value between 0 and 255) [defaults to 255]|
+|-b      |Blur (apply blur before sorting (integer) [defaults to 0])|
 |-r      |Reverse (reverse the order pixels are sorted)|
 |-u      |Upper (target the lighter pixels to sort)|
+|-p      |Preview (display preview of threshold map)|
 
 ### Examples:
 *Before images can be found in the Images folder*
