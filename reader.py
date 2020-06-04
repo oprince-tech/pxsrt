@@ -1,14 +1,10 @@
 import args
-
+import numpy as np
 
 
 u = (255, 255, 255) if args.upper else (0, 0, 0)
 l = (0, 0, 0) if args.upper else (255, 255, 255)
 
-# if args.upper:
-#     u, l = (255, 255, 255), (0, 0, 0)
-# else:
-#     u, l =  (0, 0, 0), (255, 255, 255)
 
 def threshold(value, thresh_pixels, user_threshold, index):
 
@@ -19,16 +15,14 @@ def threshold(value, thresh_pixels, user_threshold, index):
 
 
 def read_img(img, data):
-
-    def get_data(x, y):
-        return data[x, y]
-
+    pixels = np.asarray(img)
+    print(pixels)
     pixels = []
     for y in range(img.size[1]):
         pixels.append([])
         for x in range(img.size[0]):
 
-            p_data = get_data(x, y)
+            p_data = data[x, y]
             pixels[y].append(p_data)
     return pixels
 

@@ -5,9 +5,10 @@ import numpy as np
 
 
 def main():
-    sys.setrecursionlimit(10**5)
+    t1 = time.time()
+    # sys.setrecursionlimit(10**5)
     print("Importing..")
-    img, thresh_img, data, thresh_data, preview_img, output = load.load_image()
+    img, thresh_img, data, thresh_data, preview_img = load.load_image()
 
     print("Reading Pixels..")
     img, data, thresh_img, thresh_data = direction.get_direction(img, data, thresh_img, thresh_data)
@@ -23,27 +24,19 @@ def main():
     with Pool() as pool:
         sorted_pixels = pool.starmap(sorter.sort_pixels, zip(pixels, thresh_pixels))
 
-    t1 = time.time()
     print("Outputting Pixels..")
-    # test_array = np.asarray(sorted_pixels)
-    # print(test_array)
-    # test_output = Image.fromarray(test_array)
-    for y in range(img.size[1]):
-        for x in range(img.size[0]):
-            if args.direction == 'h':
-                output.putpixel((x, y), sorted_pixels[y][x])
-            elif args.direction == 'v':
-                output.putpixel((-y, x), sorted_pixels[y][x])
-    t2 = time.time() - t1
-    print('{} seconds'.format(t2))
+    #Converting python array to nparray
+    sorted_pixels = np.asarray(sorted_pixels)
+    output = Image.fromarray((sorted_pixels).astype(np.uint8), mode='HSV')
     output.convert("RGB")
     output.show()
-    save_flag = (input("Would you like to save? Y/N: ")).lower()
-    if save_flag == "y":
-        print("Saving Image..")
-        save.save(output)
 
-
+    t2 = time.time() - t1
+    print('{} seconds'.format(t2))
+    # save_flag = (input("Would you like to save? Y/N: ")).lower()
+    # if save_flag == "y":
+    #     print("Saving Image..")
+    #     save.save(output)
 
 
 if __name__ == "__main__":
