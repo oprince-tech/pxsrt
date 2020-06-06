@@ -5,28 +5,28 @@ import numpy as np
 
 
 def main():
-    t1 = time.time()
+    np.set_printoptions(threshold=sys.maxsize)
     # sys.setrecursionlimit(10**5)
     print("Importing..")
-    img, thresh_img, data, thresh_data, preview_img = load.load_image()
+    data, preview_img = load.load_image()
 
     print("Reading Pixels..")
-    img, data, thresh_img, thresh_data = direction.get_direction(img, data, thresh_img, thresh_data)
-    pixels = reader.read_img(img, data)
-    thresh_pixels = reader.read_thresh(img, thresh_data, args.threshold)
-
+    thresh_data = reader.read_thresh(data, args.threshold)
     print("Loading Preview...")
     if args.preview:
-        thresh_pixels = preview.generate_preview(img, preview_img, thresh_pixels, thresh_data)
+        thresh_data = preview.generate_preview(data, thresh_data)
 
     print("Sorting Pixels..")
     sorted_pixels = []
+    t1 = time.time()
     with Pool() as pool:
-        sorted_pixels = pool.starmap(sorter.sort_pixels, zip(pixels, thresh_pixels))
+        sorted_pixels = pool.starmap(sorter.sort_pixels, zip(data, thresh_data))
 
     print("Outputting Pixels..")
     #Converting python array to nparray
     sorted_pixels = np.asarray(sorted_pixels)
+    if args.direction == 'v':
+        sorted_pixels = np.transpose(sorted_pixels, (1,0,2))
     output = Image.fromarray((sorted_pixels).astype(np.uint8), mode='HSV')
     output.convert("RGB")
     output.show()

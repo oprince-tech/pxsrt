@@ -1,66 +1,45 @@
-from PIL import Image
 import args
-from statistics import median #to find median pivot
+import numpy as np
 
-def find_pivot(cache):
-    clen = int(len(cache))
-    if clen >= 100:
-        a, b, c = sum(cache[0]), sum(cache[int(clen/2)]), sum(cache[-1])
-        if a <= b and b <= c:
-            return int(clen/2)
-        if b <= a and c <= b:
-            return int(clen/2)
-        if a <= c and c <= b:
-            return -1
-        if c <= a and b <= c:
-            return -1
-        else:
-            return 0
-    else:
-        return 0
 
 def mode_index():
-    if args.mode == 'H':
-        return 0
-    elif args.mode == 'S':
-        return 1
-    else:
-        return 2
+    modes = {'H': 0, 'S': 1, 'V':2}
+    return modes[args.mode]
 
-def quick_sort(cache, m):
-    if cache == []:
-        return cache
-    else:
-        p_index = find_pivot(cache)
-        p = cache[int(p_index)]
-        if args.reverse:
-            l = quick_sort([x for x in cache[1:] if (x[m]) >= (p[m])], m)
-            r = quick_sort([x for x in cache[1:] if (x[m]) < (p[m])], m)
-            return l + [p] + r
-        else:
-            l = quick_sort([x for x in cache[1:] if (x[m]) < (p[m])], m)
-            r = quick_sort([x for x in cache[1:] if (x[m]) >= (p[m])], m)
-            return l + [p] + r
+def quicksort(partition_array, m):
+    sorted_partition = partition_array[partition_array[:,m].argsort()]
+    if args.reverse:
+        sorted_partition = sorted_partition[::-1]
+    return sorted_partition
 
 
-def sort_pixels(pixels, thresh):
+def partition(row, thresh_row):
     m = mode_index()
-    sorted_pixels, sort_cache = [], []
+    sorted_row = np.empty((0, 3), np.uint8)
+    partition_array = np.empty((0, 3), np.uint8)
 
-    def pixel_dump(sort_cache):
-        dump = quick_sort(sort_cache, m)
-        sorted_pixels.extend(dump)
+    for p, t in zip(row, thresh_row):
+        if t[2] == 255:
+            partition_array = np.append(partition_array, np.array([p]), axis=0)
 
-    for (p, t) in zip(pixels, thresh):
-        if t == (255, 255, 255):
-            sort_cache.append(p)
-        elif t == (0, 0, 0):
-            if sort_cache:
-                pixel_dump(sort_cache)
-                sorted_pixels.append(p)
+        else:
+            if len(partition_array) >= 1:
+                sorted_partition = quicksort(partition_array, m)
+                sorted_row = np.append(sorted_row, np.array(sorted_partition), axis=0)
+                sorted_row = np.append(sorted_row, np.array([p]), axis=0)
             else:
-                sorted_pixels.append(p)
-            sort_cache = []
-    if sort_cache:
-        pixel_dump(sort_cache)
+                sorted_row = np.append(sorted_row, np.array([p]), axis=0)
+            partition_array = np.empty((0, 3), int)
+    if len(partition_array) >= 1:
+        sorted_partition = quicksort(partition_array, m)
+        sorted_row = np.append(sorted_row, np.array(sorted_partition), axis=0)
+
+    return sorted_row
+
+def sort_pixels(row, thresh_row):
+    ### more efficient to buffer the new rows using python than using numpy
+    sorted_pixels = []
+    sorted_row = partition(row, thresh_row)
+    sorted_pixels.extend(sorted_row)
+
     return sorted_pixels
