@@ -17,13 +17,11 @@ def main():
         thresh_data = preview.generate_preview(data, thresh_data)
 
     print("Sorting Pixels..")
-    sorted_pixels = []
     t1 = time.time()
     with Pool() as pool:
         sorted_pixels = pool.starmap(sorter.sort_pixels, zip(data, thresh_data))
 
     print("Outputting Pixels..")
-    #Converting python array to nparray
     sorted_pixels = np.asarray(sorted_pixels)
     if args.direction == 'v':
         sorted_pixels = np.transpose(sorted_pixels, (1,0,2))

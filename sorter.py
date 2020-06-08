@@ -1,5 +1,6 @@
 import args
 import numpy as np
+import sys
 
 
 def mode_index():
@@ -17,6 +18,7 @@ def partition(row, thresh_row):
     m = mode_index()
     sorted_row = np.empty((0, 3), np.uint8)
     partition_array = np.empty((0, 3), np.uint8)
+
 
     for p, t in zip(row, thresh_row):
         if t[2] == 255:
@@ -37,9 +39,8 @@ def partition(row, thresh_row):
     return sorted_row
 
 def sort_pixels(row, thresh_row):
-    ### more efficient to buffer the new rows using python than using numpy
-    sorted_pixels = []
+    sorted_pixels = np.empty((0,3), np.uint8)
     sorted_row = partition(row, thresh_row)
-    sorted_pixels.extend(sorted_row)
+    sorted_pixels = np.vstack((sorted_pixels, sorted_row))
 
     return sorted_pixels
