@@ -1,4 +1,3 @@
-from PIL import Image
 import os
 import args
 
@@ -13,6 +12,4 @@ def save(output):
         str(args.reverse) + str(args.upper) + str(file_extension)
     output_path = ('/').join(args.input_image.split('/')[:-1])
     output_file = output_path + sub_path + output_base
-    if args.direction == 'v':
-        output = output.transpose(Image.FLIP_LEFT_RIGHT)
     output.save(output_file)

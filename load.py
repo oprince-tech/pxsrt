@@ -8,6 +8,5 @@ def load_image():
         if args.direction == 'v':
             img = img.rotate(90, expand=True)
         data = np.asarray(img)
-    preview_img = Image.new('RGB', img.size)
 
-    return data, preview_img
+    return data

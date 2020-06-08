@@ -1,16 +1,17 @@
 import args
 import numpy as np
-import sys
 
 
 def mode_index():
     modes = {'H': 0, 'S': 1, 'V':2}
+
     return modes[args.mode]
 
 def quicksort(partition_array, m):
     sorted_partition = partition_array[partition_array[:,m].argsort()]
     if args.reverse:
         sorted_partition = sorted_partition[::-1]
+
     return sorted_partition
 
 
@@ -32,6 +33,7 @@ def partition(row, thresh_row):
             else:
                 sorted_row = np.append(sorted_row, np.array([p]), axis=0)
             partition_array = np.empty((0, 3), int)
+
     if len(partition_array) >= 1:
         sorted_partition = quicksort(partition_array, m)
         sorted_row = np.append(sorted_row, np.array(sorted_partition), axis=0)
