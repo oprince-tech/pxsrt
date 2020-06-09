@@ -3,9 +3,9 @@ import numpy as np
 
 
 def mode_index():
-    modes = {'H': 0, 'S': 1, 'V':2}
+    modes = {'H': 0, 'S': 1, 'V':2, 'R': 0, 'G': 1, 'B':2}
 
-    return modes[args.mode]
+    return modes[args.mode.upper()]
 
 def quicksort(partition_array, m):
     sorted_partition = partition_array[partition_array[:,m].argsort()]

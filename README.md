@@ -18,7 +18,7 @@ python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-b BL
 |Option  |Description|
 |--------|------------------------------|
 |Image   |Place the file you wish to sort in the Images folder|
-|-m      |Mode (H/S/V) [defaults to V]|
+|-m      |Mode (H/S/V) or (R/G/B) [defaults to V]|
 |-d      |Direction (v or h) [defaults to h]|
 |-t      |Threshold (value between 0 and 255) [defaults to 255]|
 |-b      |Blur (apply blur before sorting (integer) [defaults to 0])|
