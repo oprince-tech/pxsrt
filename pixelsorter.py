@@ -3,10 +3,10 @@ import sys, time
 from multiprocessing import Pool
 from PIL import Image
 import numpy as np
-import memory_profiler
+# import memory_profiler
 
 
-@profile
+# @profile
 def main():
     np.set_printoptions(threshold=sys.maxsize)
 

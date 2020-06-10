@@ -1,22 +1,10 @@
 import args
 import numpy as np
 
-#user threshold tuple for Hue and Saturation
+#future# user threshold tuple for Hue and Saturation
 def read_thresh(data, user_threshold):
+
     thresh_data = np.copy(data)
-    # user_threshold = (10, 100)
-    #
-    # if args.upper:
-    #     thresh_data[thresh_data >= user_threshold[1]] = 255
-    #     thresh_data[thresh_data <= user_threshold[0]] = 0
-    #     # thresh_data[thresh_data != 255] = 0
-    # else:
-    #     thresh_data[thresh_data < user_threshold[0]] = 0
-    #     thresh_data[thresh_data > user_threshold[1]] = 0
-    #     thresh_data[thresh_data != 0] = 255
-
-    # print(thresh_data)
-
 
     if args.upper:
         thresh_data[thresh_data >= user_threshold] = 255
@@ -25,10 +13,10 @@ def read_thresh(data, user_threshold):
         thresh_data[thresh_data < user_threshold] = 255
         thresh_data[thresh_data != 255] = 0
 
-    if args.mode == 'H':
+    if args.mode == 'H' or args.mode == 'R':
         thresh_data = np.flip(thresh_data, axis=2)
         thresh_data[:,:,:2] = 0
-    elif args.mode == 'S':
+    elif args.mode == 'S' or args.mode == 'G':
         thresh_data = np.roll(thresh_data, 1 ,axis=2)
         thresh_data[:,:,:2] = 0
     else:

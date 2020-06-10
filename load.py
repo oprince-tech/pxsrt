@@ -16,11 +16,9 @@ def load_image(target):
             if args.direction == 'v':
                 img = img.rotate(90, expand=True)
             test_data = img.load()
-            print(sys.getsizeof(test_data))
             data = np.asarray(img)
-            print(data.nbytes)
 
-    return data
+        return data
 
 
     except FileNotFoundError as e:
