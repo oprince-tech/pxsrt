@@ -3,7 +3,7 @@ import numpy as np
 
 #future# user threshold tuple for Hue and Saturation
 def read_thresh(data, user_threshold):
-
+    """Creates a threshold map from image data and desire threshold (0-255)."""
     thresh_data = np.copy(data)
 
     if args.upper:

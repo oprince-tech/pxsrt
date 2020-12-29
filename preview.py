@@ -3,7 +3,11 @@ import args
 import reader
 
 def generate_preview(data, thresh_data):
+    """Generate a preview of the pixels to be sorted.
 
+    White -- Pixels to be sorted.
+    Black -- Pixels that will be ignored.
+    """
     user_preview_choice = False
     while not user_preview_choice:
         preview_img = Image.fromarray(thresh_data, mode='HSV')

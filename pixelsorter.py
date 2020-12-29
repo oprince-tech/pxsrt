@@ -1,12 +1,12 @@
 import args, mode, load, reader, preview, sorter, save
+
 import sys, time
 from multiprocessing import Pool
 from PIL import Image
 import numpy as np
-# import memory_profiler
+from LogDecorator import logger, exception
 
-
-# @profile
+@exception(logger)
 def main():
     np.set_printoptions(threshold=sys.maxsize)
 
@@ -24,7 +24,6 @@ def main():
         thresh_data = preview.generate_preview(data, thresh_data)
 
     print("Sorting Pixels...")
-    t1 = time.time()
     with Pool() as pool:
         sorted_pixels = pool.starmap(sorter.sort_pixels, zip(data, thresh_data))
     del data, thresh_data
@@ -38,14 +37,11 @@ def main():
     output = output.convert("RGB")
     output.show()
 
-    t2 = time.time() - t1
-    print('{} seconds'.format(t2))
     if args.save:
         save_choice = (input("Would you like to save? Y/N: ")).lower()
         if save_choice == "y":
             print("Saving Image..")
             save.save(output)
-
 
 if __name__ == "__main__":
     main()

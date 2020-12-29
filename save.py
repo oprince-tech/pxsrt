@@ -3,6 +3,7 @@ import args
 
 
 def save(output):
+    """Save pixel sorted image ('./images/export/')"""
     sub_path = './images/export/'
     if not os.path.exists(sub_path):
         os.makedirs(sub_path)
