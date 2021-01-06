@@ -1,10 +1,6 @@
-import args
-
-
-def target_mode():
+def target_mode(target: str) -> str:
     """Returns a target mode to load image into based on user args.mode"""
     try:
-        target = args.mode.upper()
         modes = {'H': 'HSV',
                  'S': 'HSV',
                  'V': 'HSV',
@@ -14,6 +10,6 @@ def target_mode():
 
         return modes[target]
 
-    except:
-        print("ERROR: Mode must contain one of the following letters: H/S/V R/G/B")
-        raise
+    except KeyError as e:
+        print(f"KeyError: {e} is an invalid mode. Mode must contain one of the following letters: H/S/V R/G/B")
+        raise SystemExit

@@ -27,17 +27,9 @@ def exception(logger):
                 return func(*args, **kwargs)
             except:
                 exc = "exception in " + func.__name__ + "\n"
-                exc = exc + ("-" * 79) + "\n"
+                exc = exc + ("=" * 79) + "\n"
                 logger.exception(exc)
-            raise
+                raise
         return wrapper
     return decorator
-
-# def info(logger):
-#     def decorator(func):
-#         @wraps(func)
-#         def wrapper(*args, **kwargs):
-#             logger.info(func)
-#             return func(*args, **kwargs)
-#         return wrapper
-#     return decorator
+    

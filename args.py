@@ -1,16 +1,14 @@
 import argparse
 
 parser = argparse.ArgumentParser(
-    print("""
-  | Pixel Sorter |
-    """),
-    usage='%(prog)s [-h] [IMAGE] [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r REVERSE] [-u UPPER] [-b BLUR] [-p PREVIEW]'
+    description='Pixelsorter by Oliver Prince',
+    usage='%(prog)s <IMAGE> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-r REVERSE] [-u UPPER] [-b BLUR] [-p PREVIEW]'
 )
 parser.add_argument("Image", help="Name of file in images folder. Ex: earth.jpg")
 parser.add_argument("-m", "--mode", help="H/S/V* R/G/B", default="V", metavar='\b')
 parser.add_argument("-d", "--direction", help="v (vertical) or h (horizontal)",
                default="h", metavar='\b')
-parser.add_argument("-t", "--threshold", help="integer 0 to 255", type=int, default=255, metavar='\b')
+parser.add_argument("-t", "--threshold", help="integer 0 to 255", type=int, default=255, choices=range(0-255), metavar='\b')
 parser.add_argument("-r", "--reverse", help="Reverse the order pixels are sorted.",
                action="store_true")
 parser.add_argument("-u", "--upper", help="Sort the lighter pixels.",
