@@ -10,7 +10,7 @@ def read_thresh(data: np.ndarray,
     """
     thresh_data = np.copy(data)
 
-    if args.outter:
+    if args.outer:
         thresh_data[thresh_data < l] = 255
         thresh_data[thresh_data >= u] = 255
         thresh_data[thresh_data != 255] = 0

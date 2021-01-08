@@ -20,7 +20,7 @@ def save(output):
                                                         args.l_threshold,
                                                         args.u_threshold,
                                                         args.reverse,
-                                                        args.outter,
+                                                        args.outer,
                                                         file_extension)
 
         else:
