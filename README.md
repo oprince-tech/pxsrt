@@ -12,7 +12,7 @@ pip install Pillow
 ```
 git clone https://github.com/oprince-dev/pixelsorter.git
 cd pixelsorter
-python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-b BLUR] [-r] [-u] [-p PREVIEW]
+python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r] [-p] [-s]
 ```
 ### Notes:
 |Option  |Description|
@@ -21,10 +21,10 @@ python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-b BL
 |-m      |Mode (H/S/V) or (R/G/B) [defaults to V]|
 |-d      |Direction (v or h) [defaults to h]|
 |-t      |Threshold (value between 0 and 255) [defaults to 255]|
-|-b      |Blur (apply blur before sorting (integer) [defaults to 0])|
 |-r      |Reverse (reverse the order pixels are sorted)|
-|-u      |Upper (target the lighter pixels to sort)|
+|-o      |Outer (sort the pixels outside of your threshold range)|
 |-p      |Preview (display preview of threshold map)|
+|-s      |Save (save image)|
 
 ### Examples:
 *Before images can be found in the Images folder*

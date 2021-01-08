@@ -16,11 +16,8 @@ def load_image(target: str) -> np.ndarray:
             test_data = img.load()
             data = np.asarray(img)
 
-    except FileNotFoundError as e:
-        print(e)
-        raise SystemExit
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"{type(e).__name__}: {e}")
         raise SystemExit
     else:
         return data

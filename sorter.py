@@ -26,20 +26,30 @@ def partition(row: np.ndarray, thresh_row: np.ndarray) -> np.ndarray:
 
     for p, t in zip(row, thresh_row):
         if t[2] == 255:
-            partition_array = np.append(partition_array, np.array([p]), axis=0)
+            partition_array = np.append(partition_array,
+                                        np.array([p]),
+                                        axis=0)
 
         else:
             if len(partition_array) >= 1:
                 sorted_partition = quicksort(partition_array, m)
-                sorted_row = np.append(sorted_row, np.array(sorted_partition), axis=0)
-                sorted_row = np.append(sorted_row, np.array([p]), axis=0)
+                sorted_row = np.append(sorted_row,
+                                       np.array(sorted_partition),
+                                       axis=0)
+                sorted_row = np.append(sorted_row,
+                                       np.array([p]),
+                                       axis=0)
             else:
-                sorted_row = np.append(sorted_row, np.array([p]), axis=0)
+                sorted_row = np.append(sorted_row,
+                                       np.array([p]),
+                                       axis=0)
             partition_array = np.empty((0, 3), int)
 
     if len(partition_array) >= 1:
         sorted_partition = quicksort(partition_array, m)
-        sorted_row = np.append(sorted_row, np.array(sorted_partition), axis=0)
+        sorted_row = np.append(sorted_row,
+                               np.array(sorted_partition),
+                               axis=0)
 
     return sorted_row
 

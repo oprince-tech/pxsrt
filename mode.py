@@ -11,5 +11,9 @@ def target_mode(target: str) -> str:
         return modes[target]
 
     except KeyError as e:
-        print(f"KeyError: {e} is an invalid mode. Mode must contain one of the following letters: H/S/V R/G/B")
+        print(f"{type(e).__name__}: {e} is an invalid mode." \
+              f"Mode must contain one of the following letters: H/S/V R/G/B")
+        raise SystemExit
+    except Exception as e:
+        print(f"{type(e).__name__}: {e}")
         raise SystemExit

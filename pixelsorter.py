@@ -16,7 +16,7 @@ def main():
     data = load.load_image(target)
 
     print("Reading Pixels...")
-    thresh_data = reader.read_thresh(data, args.threshold)
+    thresh_data = reader.read_thresh(data)
 
     print("Loading Preview...")
     if args.preview:
@@ -24,7 +24,8 @@ def main():
 
     print("Sorting Pixels...")
     with Pool() as pool:
-        sorted_ndarray = pool.starmap(sorter.sort_pixels, zip(data, thresh_data))
+        sorted_ndarray = pool.starmap(sorter.sort_pixels,
+                                     zip(data, thresh_data))
     del data, thresh_data
 
     print("Outputting Pixels..")
@@ -39,10 +40,7 @@ def main():
     output.show()
 
     if args.save:
-        save_choice = (input("Would you like to save? Y/N: ")).lower()
-        if save_choice == "y":
-            print("Saving Image..")
-            save.save(output)
+        save.save(output)
 
 if __name__ == "__main__":
     main()
