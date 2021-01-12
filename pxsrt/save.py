@@ -1,5 +1,5 @@
 import os
-import args
+from pxsrt import args
 
 
 def save(output):

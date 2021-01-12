@@ -1,13 +1,13 @@
 from typing import List
 from PIL import Image
-import args
+from pxsrt import args
 import numpy as np
 import sys
 
 def load_image(target: str) -> np.ndarray:
     try:
         """Locate file and return image data as an np array."""
-        with Image.open('./images/'+args.input_image) as img:
+        with Image.open(args.input_image) as img:
             if img.mode != target:
                 print(f"Converting ({img.mode} -> {target})...")
                 img = img.convert(target)

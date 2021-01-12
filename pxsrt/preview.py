@@ -2,8 +2,8 @@ from PIL import Image
 import time
 import subprocess
 import numpy as np
-import args
-import reader
+from pxsrt import args
+from pxsrt import reader
 
 def generate_preview(data: np.ndarray, thresh_data: np.ndarray) -> np.ndarray:
     """Generate a preview of the pixels to be sorted.

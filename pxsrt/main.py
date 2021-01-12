@@ -1,9 +1,9 @@
-import args, mode, load, reader, preview, sorter, save
+from pxsrt import args, mode, load, reader, preview, sorter, save
 import sys
 from multiprocessing import Pool
 from PIL import Image
 import numpy as np
-from LogDecorator import logger, exception
+from pxsrt.LogDecorator import logger, exception
 
 @exception(logger)
 def main():
