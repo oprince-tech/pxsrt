@@ -30,9 +30,9 @@ def generate_preview(data: np.ndarray, thresh_data: np.ndarray) -> np.ndarray:
             user_new_options = False
             while not user_new_options:
                 try:
-                    l_threshold = int(input(
+                    L_threshold = int(input(
                             "Enter a new lower boundary (0-255): "))
-                    u_threshold = int(input(
+                    U_threshold = int(input(
                             "Enter a new upper boundary (0-255): "))
                     o = input("Target outer pixels? (True of False): ")
                     outer = True if o.lower() == "true" else False
@@ -41,8 +41,8 @@ def generate_preview(data: np.ndarray, thresh_data: np.ndarray) -> np.ndarray:
                     thresh_data = reader.read_thresh(data,
                                                      outer=outer,
                                                      mode=mode,
-                                                     L=l_threshold,
-                                                     U=u_threshold)
+                                                     L=L_threshold,
+                                                     U=U_threshold)
                     user_new_options = True
                 except ValueError as e:
                     print(f"{type(e).__name__}: "
@@ -72,8 +72,8 @@ def save(output):
             output_base = '{}_{}{}({}-{}){}{}{}'.format(base,
                                                         _args['mode'],
                                                         _args['direction'],
-                                                        _args['l_threshold'],
-                                                        _args['u_threshold'],
+                                                        _args['L_threshold'],
+                                                        _args['U_threshold'],
                                                         _args['reverse'],
                                                         _args['outer'],
                                                         file_extension)

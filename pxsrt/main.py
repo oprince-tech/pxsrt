@@ -12,10 +12,9 @@ from multiprocessing import Pool
 def pxsrt(image,
           mode=defaults['mode'],
           direction=defaults['direction'],
-          l_threshold=defaults['l_threshold'],
-          u_threshold=defaults['u_threshold'],
+          L_threshold=defaults['L_threshold'],
+          U_threshold=defaults['U_threshold'],
           outer=defaults['outer'],
-          reverse=defaults['reverse'],
           preview=defaults['preview'],
           save=defaults['save']) -> str:
     """To use as a package:
@@ -26,8 +25,8 @@ def pxsrt(image,
     target = target_mode(mode.upper())
     data = load_image(image, target, mode, direction)
     thresh_data = read_thresh(data,
-                              l_threshold,
-                              u_threshold,
+                              L_threshold,
+                              U_threshold,
                               outer,
                               mode)
     if preview:
@@ -46,7 +45,7 @@ def pxsrt(image,
     del sorted_pixels
 
     output = output.convert("RGB")
-    print(type(output))
+
     return output
 
 

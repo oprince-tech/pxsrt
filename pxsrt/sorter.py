@@ -11,8 +11,6 @@ def mode_index() -> int:
 def quicksort(partition_array: np.ndarray, m: int) -> np.ndarray:
     """Sorts partition using np.argsort"""
     sorted_partition = partition_array[partition_array[:, m].argsort()]
-    # reverse = True
-    # if reverse:
     sorted_partition = sorted_partition[::-1]
 
     return sorted_partition
