@@ -1,18 +1,19 @@
-from pxsrt import args
 import numpy as np
 
 
 def mode_index() -> int:
     """Returns an index value based on user mode"""
-    modes = {'H': 0, 'S': 1, 'V':2, 'R': 0, 'G': 1, 'B':2}
+    modes = {'H': 0, 'S': 1, 'V': 2, 'R': 0, 'G': 1, 'B': 2}
 
-    return modes[args.mode.upper()]
+    return modes['V']
+
 
 def quicksort(partition_array: np.ndarray, m: int) -> np.ndarray:
     """Sorts partition using np.argsort"""
-    sorted_partition = partition_array[partition_array[:,m].argsort()]
-    if args.reverse:
-        sorted_partition = sorted_partition[::-1]
+    sorted_partition = partition_array[partition_array[:, m].argsort()]
+    # reverse = True
+    # if reverse:
+    sorted_partition = sorted_partition[::-1]
 
     return sorted_partition
 
@@ -22,7 +23,6 @@ def partition(row: np.ndarray, thresh_row: np.ndarray) -> np.ndarray:
     m = mode_index()
     sorted_row = np.empty((0, 3), np.uint8)
     partition_array = np.empty((0, 3), np.uint8)
-
 
     for p, t in zip(row, thresh_row):
         if t[2] == 255:
@@ -53,9 +53,10 @@ def partition(row: np.ndarray, thresh_row: np.ndarray) -> np.ndarray:
 
     return sorted_row
 
+
 def sort_pixels(row: np.ndarray, thresh_row: np.ndarray) -> np.ndarray:
     """Each row in image data is sorted and stacked back int one image."""
-    sorted_ndarray = np.empty((0,3), np.uint8)
+    sorted_ndarray = np.empty((0, 3), np.uint8)
     sorted_row = partition(row, thresh_row)
     sorted_ndarray = np.vstack((sorted_ndarray, sorted_row))
 

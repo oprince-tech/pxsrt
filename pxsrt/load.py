@@ -1,19 +1,18 @@
-from typing import List
 from PIL import Image
-from pxsrt import args
 import numpy as np
-import sys
 
-def load_image(target: str) -> np.ndarray:
+
+def load_image(image: str,
+               target: str,
+               mode: str,
+               direction: str) -> np.ndarray:
+    """Locate file and return image data as an np array."""
     try:
-        """Locate file and return image data as an np array."""
-        with Image.open(args.input_image) as img:
-            if img.mode != target:
-                print(f"Converting ({img.mode} -> {target})...")
+        with Image.open(image) as img:
+            if mode != target:
                 img = img.convert(target)
-            if args.direction == 'v':
+            if direction == 'v':
                 img = img.rotate(90, expand=True)
-            test_data = img.load()
             data = np.asarray(img)
 
     except Exception as e:
