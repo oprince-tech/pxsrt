@@ -4,23 +4,43 @@
 Python3:
 <https://wiki.python.org/moin/BeginnersGuide/Download>
 
-Pillow(PIL Fork):
-```
-pip install Pillow
-```
-### Usage:
+Installation:
 ```
 git clone https://github.com/oprince-dev/pixelsorter.git
 cd pixelsorter
-python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r] [-p] [-s]
+pip3 install .
 ```
+Installing into a virtual environment (alternate):
+```
+git clone https://github.com/oprince-dev/pixelsorter.git
+cd pixelsorter
+python3 -m venv venv
+source venv/bin/active
+pip3 install .
+```
+### Usage (shell):
+```
+pxsrt <Image> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r] [-p] [-s] [-h] 
+```
+### Usage (package):
+```
+from pxsrt.main import pxsrt
+
+pxsrt(<Image> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r])
+```
+E.g.:
+```
+pxsrt('tokyo.jpg', mode='S', direction='v', l_threshold=100, u_threshold=200, outer=True)
+returns => <PIL.Image.Image image mode=RGB size=750x500 at 0x7FC992DEE8E0>
+```
+
 ### Notes:
 |Option  |Description|
 |--------|------------------------------|
 |Image   |Place the file you wish to sort in the Images folder|
 |-m      |Mode (H/S/V) or (R/G/B) [defaults to V]|
 |-d      |Direction (v or h) [defaults to h]|
-|-t      |Threshold (value between 0 and 255) [defaults to 255]|
+|-t      |Threshold (2 value between 0 and 255) [defaults to 0 255]|
 |-r      |Reverse (reverse the order pixels are sorted)|
 |-o      |Outer (sort the pixels outside of your threshold range)|
 |-p      |Preview (display preview of threshold map)|
@@ -29,24 +49,24 @@ python3 pixelsorter.py [-h] Image [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [
 ### Examples:
 *Before images can be found in the Images folder*
 ```
-python3 pixelsorter.py tokyo.jpg -d v -t 50 -r -u
+pxsrt tokyo.jpg -d v -t 0 50 -r
 ```
 ![tokyo_Pv50ru.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/tokyo_Pv50ru.jpg)
 ___
 
 ```
-python3 pixelsorter.py koi.jpg -d v -t 255 -r
+pxsrt koi.jpg -d v -r
 ```
 ![koi_Pv255r.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/koi_Pv255r.jpg)
 ___
 
 ```
-python3 pixelsorter.py street,jpg -d h -t 40 -r -u
+pxsrt street,jpg -d h -t 0 40 -r
 ```
 ![street_Ph40ru.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/street_Ph40ru.jpg)
 ___
 
 ```
-python3 pixelsorter.py sakura.jpg -t 255 -r
+pxsrt sakura.jpg -r
 ```
-![tokyo_Pv50ru.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/sakura_Ph255r.jpg)
+![sakura_Ph255r.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/sakura_Ph255r.jpg)
