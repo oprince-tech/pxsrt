@@ -14,8 +14,8 @@ def generate_preview(data: np.ndarray, thresh_data: np.ndarray) -> np.ndarray:
     sub_path = './pxsrt_previews/'
     if not os.path.exists(sub_path):
         os.makedirs(sub_path)
-    user_preview_choice = False
-    while not user_preview_choice:
+
+    while True:
         preview_img = Image.fromarray(thresh_data,
                                       mode='HSV').convert(mode='RGB')
         preview_img.save('./pxsrt_previews/preview.png')
@@ -25,17 +25,19 @@ def generate_preview(data: np.ndarray, thresh_data: np.ndarray) -> np.ndarray:
         choice = (input("Continue with this threshold map? Y/N: ")).lower()
         if choice == "y":
             p.kill()
-            user_preview_choice = True
+            break
         else:
-            user_new_options = False
-            while not user_new_options:
+            while True:
                 try:
+                    _args = (args.parse_args())
+                    _args['mode'] = 'test'
+                    print(_args)
                     L_threshold = int(input(
                             "Enter a new lower boundary (0-255): "))
                     U_threshold = int(input(
                             "Enter a new upper boundary (0-255): "))
-                    o = input("Target outer pixels? (True of False): ")
-                    outer = True if o.lower() == "true" else False
+                    o = input("Target outer pixels? (Y/N): ")
+                    outer = True if o.lower() == "y" else False
                     mode = input("Mode (H, S, V, R, G, B): ")
                     p.kill()
                     thresh_data = reader.read_thresh(data,
@@ -43,7 +45,8 @@ def generate_preview(data: np.ndarray, thresh_data: np.ndarray) -> np.ndarray:
                                                      mode=mode,
                                                      L=L_threshold,
                                                      U=U_threshold)
-                    user_new_options = True
+                    # user_new_options = True
+                    break
                 except ValueError as e:
                     print(f"{type(e).__name__}: "
                           f"Invalid number. "
@@ -69,14 +72,13 @@ def save(output):
         save_as_choice = (input("Save as (leave blank for auto renaming): "))
         print("Saving Image..")
         if save_as_choice == '':
-            output_base = '{}_{}{}({}-{}){}{}{}'.format(base,
-                                                        _args['mode'],
-                                                        _args['direction'],
-                                                        _args['L_threshold'],
-                                                        _args['U_threshold'],
-                                                        _args['reverse'],
-                                                        _args['outer'],
-                                                        file_extension)
+            output_base = '{}_{}{}({}-{}){}{}'.format(base,
+                                                      _args['mode'],
+                                                      _args['direction'],
+                                                      _args['L_threshold'],
+                                                      _args['U_threshold'],
+                                                      _args['outer'],
+                                                      file_extension)
 
         else:
             output_base = save_as_choice

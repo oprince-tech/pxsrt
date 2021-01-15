@@ -13,6 +13,7 @@ def parse_args():
     parser.add_argument("-m", "--mode",
                         help="H/S/V* R/G/B",
                         default="V",
+                        choices=('H', 'S', 'V', 'R', 'G', 'B'),
                         metavar='\b')
     parser.add_argument("-d", "--direction",
                         help="v (vertical) or h (horizontal)",

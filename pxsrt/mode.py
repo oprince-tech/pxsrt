@@ -8,10 +8,6 @@ def target_mode(target: str) -> str:
                  'G': 'RGB',
                  'B': 'RGB'}
 
-    except KeyError as e:
-        print(f"{type(e).__name__}: {e} is an invalid mode. "
-              f"Mode must contain one of the following letters: H/S/V R/G/B")
-        raise SystemExit
     except Exception as e:
         print(f"{type(e).__name__}: {e}")
 

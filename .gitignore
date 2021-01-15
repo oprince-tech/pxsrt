@@ -7,3 +7,5 @@ logging.log
 .mypy_cache
 /tests/
 /pxsrt/loggers.py
+/pxsrt.egg-info
+/images
