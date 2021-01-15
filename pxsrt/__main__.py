@@ -15,7 +15,8 @@ def cli():
                    args['outer'],
                    args['reverse'],
                    args['preview'],
-                   args['save'])
+                   args['save'],
+                   cli=True)
 
     if args['save']:
         save(output)
