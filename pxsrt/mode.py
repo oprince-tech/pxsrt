@@ -9,6 +9,6 @@ def target_mode(target: str) -> str:
                  'B': 'RGB'}
 
     except Exception as e:
-        print(f"{type(e).__name__}: {e}")
+        print(f'{type(e).__name__}: {e}')
 
     return modes[target]
