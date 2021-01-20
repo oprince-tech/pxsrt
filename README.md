@@ -1,4 +1,4 @@
-# pixelsorter
+# pxsrt
 
 ### Requiremets:
 Python3:
@@ -6,21 +6,21 @@ Python3:
 
 Installation:
 ```
-git clone https://github.com/oprince-dev/pixelsorter.git
-cd pixelsorter
+git clone https://github.com/oprince-dev/pxsrt.git
+cd pxsrt
 pip3 install .
 ```
 Installing into a virtual environment (alternate):
 ```
-git clone https://github.com/oprince-dev/pixelsorter.git
-cd pixelsorter
+git clone https://github.com/oprince-dev/pxsrt.git
+cd pxsrt
 python3 -m venv venv
 source venv/bin/active
 pip3 install .
 ```
 ### Usage (shell):
 ```
-pxsrt <Image> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r] [-p] [-s] [-h] 
+pxsrt <Image> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r] [-p] [-s] [-h]
 ```
 ### Usage (package):
 ```
@@ -51,22 +51,22 @@ returns => <PIL.Image.Image image mode=RGB size=750x500 at 0x7FC992DEE8E0>
 ```
 pxsrt tokyo.jpg -d v -t 0 50 -r
 ```
-![tokyo_Pv50ru.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/tokyo_Pv50ru.jpg)
+![tokyo_Pv50ru.jpg](https://github.com/oprince-dev/pxsrt/blob/master/images/tokyo_Pv50ru.jpg)
 ___
 
 ```
 pxsrt koi.jpg -d v -r
 ```
-![koi_Pv255r.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/koi_Pv255r.jpg)
+![koi_Pv255r.jpg](https://github.com/oprince-dev/pxsrt/blob/master/images/koi_Pv255r.jpg)
 ___
 
 ```
 pxsrt street,jpg -d h -t 0 40 -r
 ```
-![street_Ph40ru.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/street_Ph40ru.jpg)
+![street_Ph40ru.jpg](https://github.com/oprince-dev/pxsrt/blob/master/images/street_Ph40ru.jpg)
 ___
 
 ```
 pxsrt sakura.jpg -r
 ```
-![sakura_Ph255r.jpg](https://github.com/oprince-dev/pixelsorter/blob/master/images/sakura_Ph255r.jpg)
+![sakura_Ph255r.jpg](https://github.com/oprince-dev/pxsrt/blob/master/images/sakura_Ph255r.jpg)
