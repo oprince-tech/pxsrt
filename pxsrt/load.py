@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image  # type: ignore
 import numpy as np
 
 
@@ -16,7 +16,7 @@ def load_image(image: str,
             data = np.asarray(img)
 
     except Exception as e:
-        print(f"{type(e).__name__}: {e}")
+        print(f'{type(e).__name__}: {e}')
         raise SystemExit
     else:
         return data
