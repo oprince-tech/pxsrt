@@ -1,4 +1,4 @@
-# pixelsorter
+# pxsrt
 
 ### Requiremets:
 Python3:
@@ -6,14 +6,14 @@ Python3:
 
 Installation:
 ```
-git clone https://github.com/oprince-dev/pixelsorter.git
-cd pixelsorter
+git clone https://github.com/oprince-dev/pxsrt.git
+cd pxsrt
 pip3 install .
 ```
 Installing into a virtual environment (alternate):
 ```
-git clone https://github.com/oprince-dev/pixelsorter.git
-cd pixelsorter
+git clone https://github.com/oprince-dev/pxsrt.git
+cd pxsrt
 python3 -m venv venv
 source venv/bin/active
 pip3 install .
