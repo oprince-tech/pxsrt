@@ -7,8 +7,9 @@ from pxsrt.load import load_image
 from pxsrt.reader import read_thresh
 from pxsrt import utils
 from multiprocessing import Pool
+from pxsrt.loggers import timer
 
-
+@timer
 def pxsrt(image: str,
           mode: str = 'V',
           direction: str = 'h',
@@ -33,10 +34,16 @@ def pxsrt(image: str,
     if cli and preview:
         thresh_data, final_args = utils.generate_preview(data, thresh_data)
 
+    full_sort = True if L_threshold == 0 and U_threshold == 255 else False
+
     with Pool() as pool:
         sorted_ndarray = pool.starmap(sorter.sort_pixels,
-                                      zip(data, thresh_data,
-                                          repeat(mode), repeat(reverse)))
+                                      zip(data,
+                                          thresh_data,
+                                          repeat(mode),
+                                          repeat(reverse),
+                                          repeat(full_sort)))
+
     del data, thresh_data
 
     sorted_pixels = np.asarray(sorted_ndarray)
