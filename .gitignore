@@ -6,6 +6,5 @@ logging.log
 .mypy.ini
 .mypy_cache
 /tests/
-/pxsrt/loggers.py
 /pxsrt.egg-info
 /images
