@@ -27,6 +27,12 @@ def generate_preview(data: np.ndarray,
         choice = (input('Continue with this threshold map? Y/N: ')).lower()
         if choice == 'y':
             p.kill()
+            _args = args.parse_args()
+            final_args = {
+                    'threshold': [_args['L_threshold'], _args['U_threshold']],
+                    'outer': _args['outer'],
+                    'mode': _args['mode'],
+            }
             break
         else:
             while True:
@@ -44,6 +50,11 @@ def generate_preview(data: np.ndarray,
                                                      mode=mode,
                                                      L=L_threshold,
                                                      U=U_threshold)
+                    final_args = {
+                            'threshold': [L_threshold, U_threshold],
+                            'outer': outer,
+                            'mode': mode,
+                    }
                     break
                 except ValueError as e:
                     print(f'{type(e).__name__}: '
@@ -52,20 +63,14 @@ def generate_preview(data: np.ndarray,
                 except Exception as e:
                     print(f'{type(e).__name__}: {e}')
 
-    final_args = {
-            'threshold': [L_threshold, U_threshold],
-            'outer': outer,
-            'mode': mode,
-    }
     return thresh_data, final_args
 
 
-def save_sort(output: Image, f_args: dict) -> None:
+def save_sort(output: Image, **kwargs: dict) -> None:
     """Save pixel sorted image ('./pxsrt_exports/')"""
-    _args = args.parse_args()
     sub_path = './pxsrt_exports/'
     base, file_extension = os.path.splitext(
-            os.path.basename(_args['input_image']))
+            os.path.basename(kwargs['input_image']))
     if not os.path.exists(sub_path):
         os.makedirs(sub_path)
 
@@ -75,16 +80,16 @@ def save_sort(output: Image, f_args: dict) -> None:
         print('Saving Image..')
         if save_as_choice == '':
             output_base = '{}_{}{}({}-{}){}{}'.format(base,
-                                                      f_args['mode'],
-                                                      _args['direction'],
-                                                      f_args['threshold'][0],
-                                                      f_args['threshold'][1],
-                                                      f_args['outer'],
+                                                      kwargs['mode'],
+                                                      kwargs['direction'],
+                                                      kwargs['L_threshold'],
+                                                      kwargs['U_threshold'],
+                                                      kwargs['outer'],
                                                       file_extension)
 
         else:
             output_base = save_as_choice
 
-        output_path = ('/').join(_args['input_image'].split('/')[:-1])
+        output_path = ('/').join(kwargs['input_image'].split('/')[:-1])
         output_file = output_path + sub_path + output_base
         output.save(output_file)

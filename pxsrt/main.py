@@ -7,9 +7,8 @@ from pxsrt.load import load_image
 from pxsrt.reader import read_thresh
 from pxsrt import utils
 from multiprocessing import Pool
-from pxsrt.loggers import timer
 
-@timer
+
 def pxsrt(image: str,
           mode: str = 'V',
           direction: str = 'h',
@@ -33,7 +32,12 @@ def pxsrt(image: str,
                               mode)
     if cli and preview:
         thresh_data, final_args = utils.generate_preview(data, thresh_data)
-
+    else:
+        final_args = {
+                'threshold': [L_threshold, U_threshold],
+                'outer': outer,
+                'mode': mode,
+        }
     full_sort = True if L_threshold == 0 and U_threshold == 255 else False
 
     with Pool() as pool:
@@ -56,6 +60,12 @@ def pxsrt(image: str,
     output = output.convert('RGB')
 
     if cli and save:
-        utils.save_sort(output, final_args)
+        utils.save_sort(output,
+                        input_image=image,
+                        mode=final_args['mode'],
+                        direction=direction,
+                        L_threshold=final_args['threshold'][0],
+                        U_threshold=final_args['threshold'][1],
+                        outer=final_args['outer'],)
 
     return output
