@@ -6,13 +6,13 @@ Python3:
 
 Installation:
 ```
-git clone https://github.com/oprince-dev/pxsrt.git
+git clone https://github.com/oprince-tech/pxsrt.git
 cd pxsrt
 pip3 install .
 ```
 Installing into a virtual environment (alternate):
 ```
-git clone https://github.com/oprince-dev/pxsrt.git
+git clone https://github.com/oprince-tech/pxsrt.git
 cd pxsrt
 python3 -m venv venv
 source venv/bin/active
