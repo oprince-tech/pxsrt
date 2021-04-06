@@ -12,9 +12,11 @@ def mode_index(mode: str) -> int:
     return modes[mode]
 
 
-def quicksort(partition_array: np.ndarray,
-              m: int,
-              reverse: bool) -> np.ndarray:
+def quicksort(
+    partition_array: np.ndarray,
+    m: int,
+    reverse: bool,
+) -> np.ndarray:
     """Sorts partition using np.argsort"""
     sorted_partition = partition_array[partition_array[:, m].argsort()]
     if reverse:
@@ -23,11 +25,13 @@ def quicksort(partition_array: np.ndarray,
     return sorted_partition
 
 
-def partition(row: np.ndarray,
-              thresh_row: np.ndarray,
-              mode: str,
-              reverse: bool,
-              full_sort: bool) -> np.ndarray:
+def partition(
+    row: np.ndarray,
+    thresh_row: np.ndarray,
+    mode: str,
+    reverse: bool,
+    full_sort: bool,
+) -> np.ndarray:
     """Takes group of consecutive white pixels and sends them to quicksort"""
     m = mode_index(mode)
     # Skip pixel loop if sorting all pixels (significant speed increase)
@@ -35,14 +39,13 @@ def partition(row: np.ndarray,
         sorted_row = quicksort(row, m, reverse)
     else:
         sorted_row = np.empty((0, 3), np.uint8)
-        partition_array = np.empty((0, 3), np.uint8)
         t_mask = np.ma.make_mask(thresh_row)
 
-        spr = np.split(row, np.where(np.diff(t_mask[:, 2]) == True)[0]+1)
-        spm = np.split(t_mask, np.where(np.diff(t_mask[:, 2]) == True)[0]+1)
+        spr = np.split(row, np.where(np.diff(t_mask[:, 2]) is True)[0]+1)
+        spm = np.split(t_mask, np.where(np.diff(t_mask[:, 2]) is True)[0]+1)
 
         for i, s in enumerate(spr):
-            if spm[i].any() == True:
+            if spm[i].any() is True:
                 srt = quicksort(s, m, reverse)
                 sorted_row = np.concatenate((sorted_row, srt))
             else:
@@ -51,11 +54,13 @@ def partition(row: np.ndarray,
     return sorted_row
 
 
-def sort_pixels(row: np.ndarray,
-                thresh_row: np.ndarray,
-                mode: str,
-                reverse: bool,
-                full_sort: bool) -> np.ndarray:
+def sort_pixels(
+    row: np.ndarray,
+    thresh_row: np.ndarray,
+    mode: str,
+    reverse: bool,
+    full_sort: bool,
+) -> np.ndarray:
     """Each row in image data is sorted and stacked back int one image"""
     if sort_worthy(thresh_row):
         sorted_ndarray = np.empty((0, 3), np.uint8)

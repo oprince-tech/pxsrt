@@ -1,11 +1,13 @@
 import numpy as np
 
 
-def read_thresh(data: np.ndarray,
-                L: int,
-                U: int,
-                outer: bool,
-                mode: str) -> np.ndarray:
+def read_thresh(
+    data: np.ndarray,
+    L: int,
+    U: int,
+    outer: bool,
+    mode: str,
+) -> np.ndarray:
     """
     Creates a threshold map from image data and desire threshold range (0-255).
     """

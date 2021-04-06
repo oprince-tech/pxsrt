@@ -1,3 +1,4 @@
+# type: ignore
 import logging
 import time
 from functools import wraps
@@ -11,7 +12,8 @@ def init_logger():
     logger.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(
-            '%(asctime)s - %(levelname)s: %(name)s: %(message)s')
+        '%(asctime)s - %(levelname)s: %(name)s: %(message)s',
+    )
 
     file_handler = logging.FileHandler('logging.log')
     file_handler.setFormatter(formatter)
@@ -31,8 +33,8 @@ def exception(logger):
             try:
                 return func(*args, **kwargs)
             except Exception:
-                exc = "exception in " + func.__name__ + "\n"
-                exc = exc + ("=" * 79) + "\n"
+                exc = 'exception in ' + func.__name__ + '\n'
+                exc = exc + ('=' * 79) + '\n'
                 logger.exception(exc)
                 raise
         return wrapper

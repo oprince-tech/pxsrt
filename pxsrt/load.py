@@ -1,11 +1,13 @@
-from PIL import Image  # type: ignore
 import numpy as np
+from PIL import Image  # type: ignore
 
 
-def load_image(image: str,
-               target: str,
-               mode: str,
-               direction: str) -> np.ndarray:
+def load_image(
+    image: str,
+    target: str,
+    mode: str,
+    direction: str,
+) -> np.ndarray:
     """Locate file and return image data as an np array."""
     try:
         with Image.open(image) as img:
