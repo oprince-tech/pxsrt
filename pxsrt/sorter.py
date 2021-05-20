@@ -43,8 +43,9 @@ def partition(
         sorted_row = np.empty((0, 3), np.uint8)
         t_mask = np.ma.make_mask(thresh_row)
 
-        spr = np.split(row, np.where(np.diff(t_mask[:, 2]) is True)[0]+1)
-        spm = np.split(t_mask, np.where(np.diff(t_mask[:, 2]) is True)[0]+1)
+        indicies = np.nonzero(t_mask[1:] != t_mask[:-1])[0] + 1
+        spr = np.split(row, indicies)
+        spm = np.split(t_mask, indicies)
 
         for i, s in enumerate(spr):
             if spm[i].any():
