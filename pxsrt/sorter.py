@@ -18,7 +18,9 @@ def quicksort(
     reverse: bool,
 ) -> np.ndarray:
     """Sorts partition using np.argsort"""
-    sorted_partition = partition_array[partition_array[:, m].argsort()]
+    sorted_partition = partition_array[
+        partition_array[:, m].argsort(kind='stable')
+    ]
     if reverse:
         sorted_partition = sorted_partition[::-1]
 
@@ -45,12 +47,11 @@ def partition(
         spm = np.split(t_mask, np.where(np.diff(t_mask[:, 2]) is True)[0]+1)
 
         for i, s in enumerate(spr):
-            if spm[i].any() is True:
+            if spm[i].any():
                 srt = quicksort(s, m, reverse)
                 sorted_row = np.concatenate((sorted_row, srt))
             else:
                 sorted_row = np.concatenate((sorted_row, s))
-
     return sorted_row
 
 
