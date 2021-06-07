@@ -1,11 +1,13 @@
 TOADD.md
 __pycache__
-/test_env/*
 /venv
 logging.log
 /*_cache
-/tests/
 /pxsrt.egg-info
 /images
 Dockerfile
 Dockerfile.save
+.tox
+/htmlcov
+.coverage
+/pxsrt_*/

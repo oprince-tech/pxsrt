@@ -44,7 +44,11 @@ def pxsrt(
             'outer': outer,
             'mode': mode,
         }
-    full_sort = True if L_threshold == 0 and U_threshold == 255 else False
+
+    if final_args['threshold'][0] == 0 and final_args['threshold'][1] == 255:
+        full_sort = True
+    else:
+        full_sort = False
 
     with Pool() as pool:
         sorted_ndarray = pool.starmap(
@@ -64,20 +68,23 @@ def pxsrt(
     if direction.lower() == 'v':
         sorted_pixels = np.transpose(sorted_pixels, (1, 0, 2))
 
-    output = Image.fromarray((sorted_pixels).astype(np.uint8), mode=target)
+    output_image = Image.fromarray(
+        (sorted_pixels).astype(np.uint8), mode=target,
+    )
     del sorted_pixels
 
-    output = output.convert('RGB')
+    output_image = output_image.convert('RGB')
 
     if cli and save:
         utils.save_sort(
-            output,
+            output_image,
             input_image=image,
             mode=final_args['mode'],
             direction=direction,
             L_threshold=final_args['threshold'][0],
             U_threshold=final_args['threshold'][1],
             outer=final_args['outer'],
+            reverse=reverse,
         )
 
-    return output
+    return output_image

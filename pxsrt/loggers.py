@@ -1,7 +1,20 @@
 # type: ignore
+import cProfile
 import logging
+import pstats
 import time
 from functools import wraps
+
+
+def perfmon(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        prof = cProfile.Profile()
+        retval = prof.runcall(func, *args, **kwargs)
+        ps = pstats.Stats(prof).sort_stats('cumtime')
+        ps.print_stats()
+        return retval
+    return wrapper
 
 
 def init_logger():

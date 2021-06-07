@@ -11,7 +11,7 @@ def load_image(
     """Locate file and return image data as an np array."""
     try:
         with Image.open(image) as img:
-            if mode != target:
+            if img.mode != target:
                 img = img.convert(target)
             if direction == 'v':
                 img = img.rotate(90, expand=True)

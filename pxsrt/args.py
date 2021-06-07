@@ -22,6 +22,7 @@ def parse_args() -> dict:
     parser.add_argument(
         '-d', '--direction',
         help='v (vertical) or h (horizontal).',
+        choices=('v', 'h'),
         default='h',
         metavar='\b',
     )

@@ -1,6 +1,8 @@
 import os
 import subprocess
+from pathlib import Path
 from typing import Any
+from typing import Optional
 from typing import Tuple
 
 import numpy as np
@@ -8,6 +10,11 @@ from PIL import Image  # type: ignore
 
 from pxsrt import args
 from pxsrt import reader
+
+
+def check_dir_integrity(p: Path) -> None:
+    if not p.exists():
+        Path.mkdir(p)
 
 
 def generate_preview(
@@ -19,45 +26,51 @@ def generate_preview(
     White -- Pixels to be sorted.
     Black -- Pixels that will be ignored.
     """
-    sub_path = './pxsrt_previews/'
-    if not os.path.exists(sub_path):
-        os.makedirs(sub_path)
+
+    _args = args.parse_args()
+    final_args = {
+        'threshold': [_args['L_threshold'], _args['U_threshold']],
+        'outer': _args['outer'],
+        'mode': _args['mode'],
+    }
 
     while True:
+        thresh_data = np.asarray(thresh_data)
         preview_img = Image.fromarray(
             thresh_data,
             mode='HSV',
         ).convert(mode='RGB')
-        preview_img.save('./pxsrt_previews/preview.png')
+
+        preview_folder = Path('./pxsrt_previews')
+        check_dir_integrity(preview_folder)
+        preview_file = preview_folder / 'preview.png'
+        preview_img.save(preview_file)
 
         p = subprocess.Popen(['eog', './pxsrt_previews/preview.png'])
 
         choice = (input('Continue with this threshold map? Y/N: ')).lower()
         if choice == 'y':
             p.kill()
-            _args = args.parse_args()
-            final_args = {
-                'threshold': [_args['L_threshold'], _args['U_threshold']],
-                'outer': _args['outer'],
-                'mode': _args['mode'],
-            }
             break
         else:
             while True:
                 try:
                     L_threshold = int(
-                        input(
-                            'Enter a new lower boundary (0-255): ',
-                        ),
+                        input('Enter a new lower boundary (0-255): '),
                     )
                     U_threshold = int(
-                        input(
-                            'Enter a new upper boundary (0-255): ',
-                        ),
+                        input('Enter a new upper boundary (0-255): '),
                     )
                     o = input('Target outer pixels? (Y/N): ')
                     outer = True if o.lower() == 'y' else False
+                    possible_modes = ['H', 'S', 'V', 'R', 'G', 'B']
                     mode = input('Mode (H, S, V, R, G, B): ')
+                    if mode not in possible_modes:
+                        raise ValueError(
+                            'Mode not accepted. '
+                            'Please choose from (H, S, V, R, G, B).',
+                        )
+
                     p.kill()
                     thresh_data = reader.read_thresh(
                         data,
@@ -71,46 +84,63 @@ def generate_preview(
                         'outer': outer,
                         'mode': mode,
                     }
-                    break
                 except ValueError as e:
-                    print(
-                        f'{type(e).__name__}: '
-                        f'Invalid number. '
-                        f'Numbers must be within the range of 0 and 255',
-                    )
-                except Exception as e:
                     print(f'{type(e).__name__}: {e}')
+
+                break
 
     return thresh_data, final_args
 
 
-def save_sort(output: Image, **kwargs: Any) -> None:
-    """Save pixel sorted image ('./pxsrt_exports/')"""
-    sub_path = '/pxsrt_exports/'
+def convert(data: np.ndarray) -> None:
+    """Convert between RGB and HSV
+    In this future this will convert between modes rather than use PIL convert
+    """
+
+
+def create_save_filename(**kwargs: Any) -> Optional[str]:
     base, file_extension = os.path.splitext(
         os.path.basename(kwargs['input_image']),
     )
-    if not os.path.exists(sub_path):
-        os.makedirs(sub_path)
 
     save_choice = (input('Would you like to save? Y/N: ')).lower()
     if save_choice == 'y':
         save_as_choice = (input('Save as (leave blank for auto renaming): '))
-        print('Saving Image..')
         if save_as_choice == '':
-            output_base = '{}_{}{}({}-{}){}{}'.format(
+            save_filename = '{}_{}{}({}-{}){}{}{}'.format(
                 base,
                 kwargs['mode'],
                 kwargs['direction'],
                 kwargs['L_threshold'],
                 kwargs['U_threshold'],
                 kwargs['outer'],
+                kwargs['reverse'],
                 file_extension,
             )
 
         else:
-            output_base = save_as_choice
+            save_filename = save_as_choice
+    else:
+        return None
 
-        output_path = ('/').join(kwargs['input_image'].split('/')[:-1])
-        output_file = output_path + sub_path + output_base
-        output.save(output_file)
+    return save_filename
+
+
+def save_sort(output_image: Image, **kwargs: Any) -> None:
+    """Save pixel sorted image ('./pxsrt_exports/')"""
+    export_folder = Path('./pxsrt_exports')
+
+    check_dir_integrity(export_folder)
+    save_filename = create_save_filename(
+        input_image=kwargs['input_image'],
+        mode=kwargs['mode'],
+        direction=kwargs['direction'],
+        L_threshold=kwargs['L_threshold'],
+        U_threshold=kwargs['U_threshold'],
+        outer=kwargs['outer'],
+        reverse=kwargs['reverse'],
+    )
+    if save_filename:
+        print('Saving Image..')
+        output_file = export_folder / save_filename
+        output_image.save(output_file)
