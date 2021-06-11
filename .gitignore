@@ -11,3 +11,4 @@ Dockerfile.save
 /htmlcov
 .coverage
 /pxsrt_*/
+.python-version
