@@ -24,8 +24,12 @@ def pxsrt(
     cli: bool = False,
 ) -> Image:
     """To use as a package:
-            from pxsrt.main import pxsrt
-            pxsrt('tokyo.jpg', [OPTIONS]) -> returns PIL image
+            Dependencies:
+                numpy>=1.20.0
+                Pillow>=8.2.0
+            Usage:
+                from pxsrt.main import pxsrt
+                pxsrt('tokyo.jpg', [OPTIONS]) -> returns PIL image
     """
     target = target_mode(mode.upper())
     data = load_image(image, target, mode, direction)
