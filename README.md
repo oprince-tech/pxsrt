@@ -27,6 +27,8 @@ pip3 install .
 ### Usage (shell):
 ```
 pxsrt <Image> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r] [-p] [-s] [-h]
+
+pxsrt tokyo.jpg -m S -d v -t 100 200 -o
 ```
 ### Usage (package):
 ```
