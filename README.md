@@ -27,17 +27,19 @@ pip3 install .
 ### Usage (shell):
 ```
 pxsrt <Image> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r] [-p] [-s] [-h]
-
+```
+E.g.:
+```shell
 pxsrt tokyo.jpg -m S -d v -t 100 200 -o
 ```
 ### Usage (package):
-```
+```python
 from pxsrt.main import pxsrt
 
 pxsrt(<Image> [-m MODE] [-d DIRECTION] [-t THRESHOLD] [-o] [-r])
 ```
 E.g.:
-```
+```python
 pxsrt('tokyo.jpg', mode='S', direction='v', l_threshold=100, u_threshold=200, outer=True)
 returns => <PIL.Image.Image image mode=RGB size=750x500 at 0x7FC992DEE8E0>
 ```
