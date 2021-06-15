@@ -1,8 +1,14 @@
 # pxsrt
 
 ### Requiremets:
-Python3:
-<https://wiki.python.org/moin/BeginnersGuide/Download>
+Python>=3.7:  
+<https://wiki.python.org/moin/BeginnersGuide/Download>  
+
+numpy>=1.20.0  
+<https://numpy.org/install/>  
+
+Pillow>=8.2.0  
+<https://pillow.readthedocs.io/en/stable/installation.html>  
 
 Installation:
 ```
