@@ -71,7 +71,7 @@ pxsrt koi.jpg -d v -r
 ___
 
 ```
-pxsrt street,jpg -d h -t 0 40 -r
+pxsrt street.jpg -d h -t 0 40 -r
 ```
 ![street_Ph40ru.jpg](https://github.com/oprince-tech/pxsrt/blob/master/images/street_Ph40ru.jpg)
 ___
